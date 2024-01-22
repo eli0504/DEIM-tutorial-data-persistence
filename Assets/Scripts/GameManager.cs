@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using System.IO;
 using UnityEngine;
 
 public class GameManager : MonoBehaviour
@@ -11,21 +12,25 @@ public class GameManager : MonoBehaviour
     private const string PLAYER_POS_Y = "PlayerPositionY";
     private const string TOTAL_COINS = "TotalCoins";
 
+    private const string SAVE_FILE_PATH = "/save.json";
+
     private void Update()
     {
         if (Input.GetKeyDown(KeyCode.Return))
         {
-            Save();
+            SaveJson();
         }
 
         if (Input.GetKeyDown(KeyCode.L))
         {
-            Load();
+            LoadJson();
         }
 
+        // Solo tiene que ver con PlayerPrefs
         if (Input.GetKeyDown(KeyCode.Tab))
         {
-            // Borrar los datos de PlayerPrefs
+            Debug.Log("Deleted");
+            PlayerPrefs.DeleteAll();
         }
     }
 
@@ -34,7 +39,7 @@ public class GameManager : MonoBehaviour
         Debug.Log("Save!");
         
         // POSITION
-        Vector2 pos = playerController.GetPosition();
+        Vector3 pos = playerController.GetPosition();
         PlayerPrefs.SetFloat(PLAYER_POS_X, pos.x);
         PlayerPrefs.SetFloat(PLAYER_POS_Y, pos.y);
         Debug.Log($"Position: {pos}");
@@ -53,7 +58,7 @@ public class GameManager : MonoBehaviour
             // POSITION
             float x = PlayerPrefs.GetFloat(PLAYER_POS_X);
             float y = PlayerPrefs.GetFloat(PLAYER_POS_Y);
-            playerController.SetPosition(new Vector2(x, y));
+            playerController.SetPosition(new Vector3(x, y, 0));
             Debug.Log($"Position: ({x}, {y})");
 
             // TOTAL COINS
@@ -63,8 +68,46 @@ public class GameManager : MonoBehaviour
         }
         else
         {
+            // No debería de ocurrir NUNCA
             Debug.LogError("No Data");
         }
         
+    }
+
+
+    private void SaveJson()
+    {
+        Debug.Log("Saved with JSON");
+        Vector3 pos = playerController.GetPosition();
+        int totalCoins = playerController.GetTotalCoins();
+
+        SaveObject saveObject = new SaveObject
+        {
+            playerPosition = pos,
+            coins = totalCoins
+        };
+
+        string savedObjectJson = JsonUtility.ToJson(saveObject);
+
+        File.WriteAllText(Application.dataPath + SAVE_FILE_PATH, savedObjectJson);
+    }
+
+    private void LoadJson()
+    {
+        Debug.Log("Loaded with JSON");
+        if (File.Exists(Application.dataPath + SAVE_FILE_PATH))
+        {
+            string savedObjectString = File.ReadAllText(Application.dataPath + SAVE_FILE_PATH);
+
+            SaveObject saveObject = JsonUtility.FromJson<SaveObject>(savedObjectString);
+
+            playerController.SetPosition(saveObject.playerPosition);
+            playerController.SetTotalCoins(saveObject.coins);
+        }
+        else
+        {
+            // Aquí no tendríamos que caer nunca
+            Debug.LogError("No save file");
+        }
     }
 }

@@ -38,12 +38,12 @@ public class PlayerController : MonoBehaviour
         Destroy(other.gameObject);
     }
 
-    public Vector2 GetPosition()
+    public Vector3 GetPosition()
     {
         return transform.position;
     }
 
-    public void SetPosition(Vector2 newPosition)
+    public void SetPosition(Vector3 newPosition)
     {   
         transform.position = newPosition;
     }
