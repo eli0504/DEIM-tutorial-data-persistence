@@ -385,7 +385,10 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 1922838958}
+<<<<<<< HEAD
   - component: {fileID: 1922838957}
+=======
+>>>>>>> 9b4c69be9ce5156b9735aa34de58fde452fe9149
   - component: {fileID: 1922838959}
   m_Layer: 0
   m_Name: Game Manager
@@ -394,19 +397,6 @@ GameObject:
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
---- !u!114 &1922838957
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1922838956}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 5a2cf846b510a426e8d816531ff2157e, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  playerController: {fileID: 1580006571}
 --- !u!4 &1922838958
 Transform:
   m_ObjectHideFlags: 0
@@ -431,10 +421,17 @@ MonoBehaviour:
   m_GameObject: {fileID: 1922838956}
   m_Enabled: 1
   m_EditorHideFlags: 0
+<<<<<<< HEAD
   m_Script: {fileID: 11500000, guid: dcf993a808c25bf488db0ba9a6c8d25e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   playerController: {fileID: 0}
+=======
+  m_Script: {fileID: 11500000, guid: a6406f13d92594c1680f49d29ae00264, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  playerController: {fileID: 1580006571}
+>>>>>>> 9b4c69be9ce5156b9735aa34de58fde452fe9149
 --- !u!1660057539 &9223372036854775807
 SceneRoots:
   m_ObjectHideFlags: 0
